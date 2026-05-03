@@ -9,5 +9,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
 });
 
 Route::view('portfolio', 'portfolio')->name('portfolio');
+Route::view('mockup', 'mockup')->name('mockup');
 
 require __DIR__.'/settings.php';
