@@ -22,3 +22,17 @@ yarn-error.log
 /.nova
 /.vscode
 /.zed
+
+# AI / MCP / assisted development tooling
+/.agents
+/.claude
+/.codex
+/.gemini
+/.junie
+/.mcp.json
+/AGENTS.md
+/CLAUDE.md
+/GEMINI.md
+/boost.json
+/opencode.json
+/.github/skills
