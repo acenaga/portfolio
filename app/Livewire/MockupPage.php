@@ -8,6 +8,9 @@ class MockupPage extends Component
 {
     public string $carlosImage = '';
 
+    /** Foto "en acción" para el about (clase, stream, meetup). Vacío = sección solo texto. El backend la proveerá. */
+    public string $aboutImage = '';
+
     /** @var array<int, array{num: string, label: string}> */
     public array $stats = [];
 

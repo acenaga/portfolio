@@ -130,8 +130,8 @@
 
     <section id="about" class="reveal section-defer">
         <div class="container">
-            <div class="about-grid">
-                <div>
+            <div class="about-grid{{ $aboutImage === '' ? ' about-grid--text' : '' }}">
+                <div class="about-text">
                     <div class="eyebrow">{{ $copy['aboutEyebrow'] }}</div>
                     <h2 class="section-title">{!! $copy['aboutTitle'] !!}</h2>
 
@@ -151,11 +151,13 @@
                     </div>
                 </div>
 
-                <div class="about-photo-wrap">
-                    <div class="about-photo-frame"></div>
-                    <img src="{{ $carlosImage }}" alt="Carlos Ferrer" class="about-photo">
-                    <span class="sticker" style="position: absolute; top: -14px; right: -16px; transform: rotate(8deg)">★ Profesor</span>
-                </div>
+                @if ($aboutImage !== '')
+                    <div class="about-photo-wrap">
+                        <div class="about-photo-frame"></div>
+                        <img src="{{ $aboutImage }}" alt="Carlos Ferrer dando clase" class="about-photo">
+                        <span class="sticker" style="position: absolute; top: -14px; right: -16px; transform: rotate(8deg)">★ Profesor</span>
+                    </div>
+                @endif
             </div>
         </div>
     </section>

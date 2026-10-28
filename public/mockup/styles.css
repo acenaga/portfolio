@@ -446,6 +446,12 @@ section {
   gap: 48px;
   align-items: start;
 }
+.about-grid--text {
+  grid-template-columns: 1fr;
+}
+.about-grid--text .about-text {
+  max-width: 720px;
+}
 @media (max-width: 880px) {
   .about-grid { grid-template-columns: 1fr; }
 }
