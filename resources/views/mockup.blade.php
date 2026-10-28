@@ -4,10 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     @php
-        // Placeholder hasta que el backend provea los campos de SEO autogestionables.
+        // Los valores viven en SiteSettings, gestionables desde /admin.
+        $settings = app(App\Settings\SiteSettings::class);
         $seo = [
-            'title' => 'Carlos Ferrer · acenagadev — Profesor, dev y creador',
-            'description' => 'Profesor en DaVinci, desarrollador web full-stack con 10+ años de experiencia y creador de contenido sobre Laravel, Vue y desarrollo web.',
+            'title' => $settings->seo_title,
+            'description' => $settings->seo_description,
             'url' => url('/'),
             'image' => asset('mockup/og-cover.jpg'),
             'imageWidth' => 1080,

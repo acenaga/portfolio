@@ -3,6 +3,7 @@
 namespace App\Livewire;
 
 use App\Services\PortfolioContent;
+use App\Settings\SiteSettings;
 use Illuminate\Contracts\View\View;
 use Livewire\Component;
 
@@ -28,6 +29,8 @@ class MockupPage extends Component
         $this->carlosImage = $carlosImage;
         $this->content = app(PortfolioContent::class);
 
+        $settings = app(SiteSettings::class);
+
         $this->copy = [
             'navAbout' => 'Sobre mí',
             'navStack' => 'Stack',
@@ -41,14 +44,14 @@ class MockupPage extends Component
             'navContact' => 'Contacto',
             'heroEyebrow' => '// Carlos Ferrer · @acenagadev',
             'heroLocation' => 'Buenos Aires, Argentina',
-            'heroAvailability' => 'Disponible para clases particulares y charlas.',
+            'heroAvailability' => $settings->hero_availability,
             'heroCtaPrimary' => 'Sígueme en YouTube',
             'heroCtaSecondary' => 'Ver mis materias',
             'aboutEyebrow' => 'Sobre mí',
-            'aboutTitle' => '<em>Más de 10 años</em> escribiendo código y enseñando a escribirlo mejor.',
-            'aboutP1' => 'Programo desde hace más de una década y todavía me emociona cuando algo compila al primer intento. Desconfío cuando pasa.',
-            'aboutP2' => 'Soy profesor en DaVinci. Mi trabajo es bajar la teoría a tierra: que el cliente entienda qué se va a construir y el alumno vea que esto no es magia.',
-            'aboutP3' => 'En el canal muestro el trabajo real: los errores, el debugging a las 3 a.m. y lo que sale bien.',
+            'aboutTitle' => $settings->about_title,
+            'aboutP1' => $settings->about_p1,
+            'aboutP2' => $settings->about_p2,
+            'aboutP3' => $settings->about_p3,
             'stackEyebrow' => 'Stack técnico',
             'stackTitle' => 'Las herramientas con las que <em>realmente</em> trabajo',
             'stackSubtitle' => 'No es una lista de buzzwords, es lo que uso a diario.',
@@ -79,7 +82,7 @@ class MockupPage extends Component
             'socialEyebrow' => 'Conectemos',
             'socialTitle' => 'Donde <em>vivo</em> el resto del tiempo',
             'socialSubtitle' => 'Si te gustó algo, me encontrás acá.',
-            'footerMade' => 'Hecho en Buenos Aires con Laravel y Livewire',
+            'footerMade' => $settings->footer_made,
             'footerCopy' => '© 2026 Carlos Ferrer · acenagadev',
             'footerVisitor' => 'Visitante',
         ];
@@ -144,14 +147,7 @@ class MockupPage extends Component
             ['type' => 'post', 'color' => '#fbdc6d', 'accent' => '#110090', 'emoji' => '💻', 'likes' => '6.7K', 'cmts' => '145'],
         ];
 
-        $this->taglines = [
-            'Profesor en DaVinci y dev full-stack',
-            'Hago videos y streams sobre lo que construyo',
-            'Enseño Laravel y a no asustarse del error 500',
-            'Devuelvo el corazón a los semicolons',
-            'PHP, Vue y mucha paciencia',
-            'Bug-driven development desde 2014',
-        ];
+        $this->taglines = $settings->taglines;
     }
 
     public function render(): View
