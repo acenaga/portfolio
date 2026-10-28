@@ -4,18 +4,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     @php
-        // Los valores viven en SiteSettings, gestionables desde /admin.
+        // Los valores viven en SiteSettings y las imágenes en el modelo Site (gestionables desde /admin).
         $settings = app(App\Settings\SiteSettings::class);
+        $site = App\Models\Site::query()->first();
         $seo = [
             'title' => $settings->seo_title,
             'description' => $settings->seo_description,
             'url' => url('/'),
-            'image' => asset('mockup/og-cover.jpg'),
-            'imageWidth' => 1080,
-            'imageHeight' => 1080,
+            'image' => $site?->getFirstMediaUrl('og') ?: asset('mockup/og-cover.jpg'),
+            'imageWidth' => 1200,
+            'imageHeight' => 630,
             'siteName' => 'acenaga.dev',
             'locale' => 'es_AR',
         ];
+        $heroImage = $site?->getFirstMediaUrl('hero') ?: asset('mockup/og-cover.jpg');
     @endphp
     <title>{{ $seo['title'] }}</title>
     <meta name="description" content="{{ $seo['description'] }}">
@@ -39,18 +41,13 @@
     <meta name="twitter:title" content="{{ $seo['title'] }}">
     <meta name="twitter:description" content="{{ $seo['description'] }}">
     <meta name="twitter:image" content="{{ $seo['image'] }}">
-    @php
-        $carlosImage = 'data:image/jpeg;base64,'.base64_encode(
-            file_get_contents(resource_path('images/mockup/carlos.jpg'))
-        );
-    @endphp
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&family=Fraunces:ital,wght@0,400;0,600;0,900;1,400;1,900&family=VT323&display=swap">
     <link rel="stylesheet" href="{{ asset('mockup/styles.css').'?v='.filemtime(public_path('mockup/styles.css')) }}">
 </head>
 <body>
-    <livewire:mockup-page :carlos-image="$carlosImage" />
+    <livewire:mockup-page :hero-image="$heroImage" />
     <script src="{{ asset('mockup/livewire.js') }}" defer></script>
 </body>
 </html>

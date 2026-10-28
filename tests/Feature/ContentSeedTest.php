@@ -3,6 +3,7 @@
 use App\Enums\VideoPlatform;
 use App\Models\Course;
 use App\Models\Project;
+use App\Models\Site;
 use App\Models\SiteStat;
 use App\Models\SocialLink;
 use App\Models\StackGroup;
@@ -19,7 +20,9 @@ test('portfolio content seeders populate every entity', function () {
         ->and(SocialLink::count())->toBe(6)
         ->and(SiteStat::count())->toBe(4)
         ->and(StackGroup::count())->toBe(3)
-        ->and(StackTool::count())->toBe(16);
+        ->and(StackTool::count())->toBe(16)
+        ->and(Site::count())->toBe(1)
+        ->and(Site::firstOrFail()->getFirstMedia('hero'))->not->toBeNull();
 });
 
 test('videos store numeric data instead of mock strings', function () {

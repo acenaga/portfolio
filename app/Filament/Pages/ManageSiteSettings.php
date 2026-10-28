@@ -2,8 +2,10 @@
 
 namespace App\Filament\Pages;
 
+use App\Models\Site;
 use App\Settings\SiteSettings;
 use BackedEnum;
+use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
 use Filament\Forms\Components\TagsInput;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
@@ -11,6 +13,7 @@ use Filament\Notifications\Notification;
 use Filament\Pages\Page;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
+use Illuminate\Support\Arr;
 
 class ManageSiteSettings extends Page
 {
@@ -74,6 +77,28 @@ class ManageSiteSettings extends Page
                     ->label('Taglines rotativos del hero')
                     ->required()
                     ->columnSpanFull(),
+                SpatieMediaLibraryFileUpload::make('hero_image')
+                    ->label('Foto del hero')
+                    ->collection('hero')
+                    ->image()
+                    ->imageEditor()
+                    ->maxSize(8192)
+                    ->columnSpanFull(),
+                SpatieMediaLibraryFileUpload::make('about_image')
+                    ->label('Foto en acción (sobre mí, opcional)')
+                    ->collection('about')
+                    ->image()
+                    ->imageEditor()
+                    ->maxSize(8192)
+                    ->columnSpanFull(),
+                SpatieMediaLibraryFileUpload::make('og_image')
+                    ->label('Imagen para compartir en redes (og:image)')
+                    ->hint('Se recorta a 1200×630')
+                    ->collection('og')
+                    ->image()
+                    ->imageEditor()
+                    ->maxSize(8192)
+                    ->columnSpanFull(),
                 TextInput::make('footer_made')
                     ->label('Texto del footer')
                     ->required()
@@ -85,14 +110,20 @@ class ManageSiteSettings extends Page
 
     public function mount(): void
     {
-        $this->form->fill(app(SiteSettings::class)->toArray());
+        $this->form->model($this->getSite())
+            ->fill(app(SiteSettings::class)->toArray());
     }
 
     public function save(): void
     {
+        $this->form->model($this->getSite());
+
+        $state = $this->form->getState();
+        $this->form->saveRelationships();
+
         $settings = app(SiteSettings::class);
 
-        foreach ($this->form->getState() as $key => $value) {
+        foreach (Arr::except($state, ['hero_image', 'about_image', 'og_image']) as $key => $value) {
             $settings->{$key} = $value;
         }
 
@@ -102,5 +133,10 @@ class ManageSiteSettings extends Page
             ->title('Ajustes guardados')
             ->success()
             ->send();
+    }
+
+    private function getSite(): Site
+    {
+        return Site::query()->firstOrCreate(['name' => 'acenaga.dev']);
     }
 }

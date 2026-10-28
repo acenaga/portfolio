@@ -2,6 +2,7 @@
 
 namespace App\Livewire;
 
+use App\Models\Site;
 use App\Services\PortfolioContent;
 use App\Settings\SiteSettings;
 use Illuminate\Contracts\View\View;
@@ -9,8 +10,6 @@ use Livewire\Component;
 
 class MockupPage extends Component
 {
-    public string $carlosImage = '';
-
     /** @var array<int, string> */
     public array $taglines = [];
 
@@ -24,9 +23,8 @@ class MockupPage extends Component
 
     private PortfolioContent $content;
 
-    public function mount(string $carlosImage): void
+    public function mount(): void
     {
-        $this->carlosImage = $carlosImage;
         $this->content = app(PortfolioContent::class);
 
         $settings = app(SiteSettings::class);
@@ -152,8 +150,11 @@ class MockupPage extends Component
 
     public function render(): View
     {
+        $site = Site::query()->first();
+
         return view('livewire.mockup-page', [
-            'aboutImage' => null,
+            'heroImage' => $site?->getFirstMediaUrl('hero') ?: asset('mockup/og-cover.jpg'),
+            'aboutImage' => $site?->getFirstMediaUrl('about') ?: null,
             'stats' => $this->content->stats(),
             'stackGroups' => $this->content->stackGroups(),
             'courses' => $this->content->courses(),
