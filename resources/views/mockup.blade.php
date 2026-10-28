@@ -43,6 +43,9 @@
             file_get_contents(resource_path('images/mockup/carlos.jpg'))
         );
     @endphp
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&family=Fraunces:ital,wght@0,400;0,600;0,900;1,400;1,900&family=VT323&display=swap">
     <link rel="stylesheet" href="{{ asset('mockup/styles.css').'?v='.filemtime(public_path('mockup/styles.css')) }}">
 </head>
 <body>

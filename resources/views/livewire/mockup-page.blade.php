@@ -59,7 +59,8 @@
         </div>
     </nav>
 
-    <section class="hero" id="top">
+    <main>
+        <section class="hero" id="top">
         <div class="hero-grid-bg"></div>
         <div class="hero-orb hero-orb-1"></div>
         <div class="hero-orb hero-orb-2"></div>
@@ -455,6 +456,7 @@
             </div>
         </div>
     </section>
+    </main>
 
     <footer class="footer">
         <div class="container">

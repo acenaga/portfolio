@@ -1,7 +1,7 @@
-/* ============ FONTS ============ */
-@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&family=Fraunces:ital,wght@0,400;0,600;0,900;1,400;1,900&family=VT323&display=swap');
-
 /* ============ TOKENS ============ */
+section[id] {
+  scroll-margin-top: 88px;
+}
 :root {
   /* brand palette */
   --c-purple-deep: #110090;
