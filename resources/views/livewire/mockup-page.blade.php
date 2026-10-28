@@ -38,7 +38,7 @@
 
             <div class="nav-actions">
                 <button class="nav-btn" data-theme-toggle aria-label="Cambiar tema">☀</button>
-                <button class="nav-mobile-toggle nav-btn" data-mobile-toggle aria-label="Abrir menu">≡</button>
+                <button class="nav-mobile-toggle nav-btn" data-mobile-toggle aria-label="Abrir menú">≡</button>
             </div>
         </div>
 
@@ -93,7 +93,6 @@
                     <div style="display: flex; gap: 8px; flex-wrap: wrap; margin-top: 24px;">
                         <span class="sticker" style="transform: rotate(-2deg)">📍 {{ $copy['heroLocation'] }}</span>
                         <span class="sticker" style="transform: rotate(1deg); background: var(--c-yellow-soft)">⏱ <span data-clock></span> · BA</span>
-                        <span class="sticker" style="transform: rotate(-1deg); background: #4ade80">● {{ $copy['heroStatusOn'] }}</span>
                     </div>
 
                     <p style="font-size: 16px; margin-top: 24px; color: var(--ink-soft); max-width: 540px;">
@@ -101,7 +100,7 @@
                     </p>
 
                     <div style="display: flex; gap: 14px; margin-top: 36px; flex-wrap: wrap;">
-                        <a href="#youtube" class="btn btn-primary glitch">▶ {{ $copy['heroCtaPrimary'] }}</a>
+                        <a href="#youtube" class="btn btn-primary">▶ {{ $copy['heroCtaPrimary'] }}</a>
                         <a href="#classes" class="btn">
                             {{ $copy['heroCtaSecondary'] }}
                             <x-mockup-icon name="arrow-right" :size="14" />
@@ -122,7 +121,6 @@
                     </div>
 
                     <span class="sticker" style="position: absolute; top: -16px; left: -20px; transform: rotate(-12deg); background: #4ade80; z-index: 2;">● ON AIR</span>
-                    <span class="sticker" style="position: absolute; bottom: 20px; right: -28px; transform: rotate(8deg); background: var(--c-yellow-soft); z-index: 2;">👨‍💻 dev/teacher</span>
                 </div>
             </div>
         </div>
@@ -155,7 +153,6 @@
                     <div class="about-photo-frame"></div>
                     <img src="{{ $carlosImage }}" alt="Carlos Ferrer" class="about-photo">
                     <span class="sticker" style="position: absolute; top: -14px; right: -16px; transform: rotate(8deg)">★ Profesor</span>
-                    <span class="sticker" style="position: absolute; bottom: 18px; left: -18px; transform: rotate(-6deg); background: var(--c-yellow-soft)">&lt;/&gt; dev</span>
                 </div>
             </div>
         </div>
@@ -470,7 +467,7 @@
             </div>
 
             <div style="margin-top: 24px; font-family: var(--f-mono); font-size: 11px; color: var(--ink-dim); text-align: center; opacity: 0.6;">
-                ▲ Tip: proba el codigo <span style="color: var(--accent)">↑↑↓↓←→←→BA</span> ▼
+                ▲ Tip: probá el código <span style="color: var(--accent)">↑↑↓↓←→←→BA</span> ▼
             </div>
         </div>
     </footer>
