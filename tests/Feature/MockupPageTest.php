@@ -1,7 +1,7 @@
 <?php
 
 test('users can visit the mockup page', function () {
-    $response = $this->get(route('mockup'));
+    $response = $this->get(route('home'));
 
     $response->assertSuccessful();
     $response->assertSee('Carlos Ferrer', false);
