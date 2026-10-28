@@ -8,6 +8,8 @@
 <div data-mockup-root>
     <script id="mockup-taglines" type="application/json">@json($taglines)</script>
 
+<a class="skip-link" href="#top">Saltar al contenido</a>
+
     <nav class="nav">
         <div class="container nav-inner">
             <a href="#top" class="nav-logo">
@@ -126,7 +128,7 @@
         </div>
     </section>
 
-    <section id="about" class="reveal">
+    <section id="about" class="reveal section-defer">
         <div class="container">
             <div class="about-grid">
                 <div>
@@ -158,7 +160,7 @@
         </div>
     </section>
 
-    <section id="stack" class="reveal">
+    <section id="stack" class="reveal section-defer">
         <div class="container">
             <div class="section-head">
                 <div class="eyebrow">{{ $copy['stackEyebrow'] }}</div>
@@ -187,7 +189,7 @@
         </div>
     </section>
 
-    <section id="classes" class="reveal">
+    <section id="classes" class="reveal section-defer">
         <div class="container">
             <div class="section-head">
                 <div class="eyebrow">{{ $copy['classesEyebrow'] }}</div>
@@ -212,7 +214,7 @@
         </div>
     </section>
 
-    <section id="projects" class="reveal">
+    <section id="projects" class="reveal section-defer">
         <div class="container">
             <div class="section-head">
                 <div class="eyebrow">{{ $copy['projectsEyebrow'] }}</div>
@@ -255,7 +257,7 @@
         </div>
     </section>
 
-    <section id="blog" class="reveal">
+    <section id="blog" class="reveal section-defer">
         <div class="container">
             <div class="section-head">
                 <div class="eyebrow">{{ $copy['blogEyebrow'] }}</div>
@@ -285,7 +287,7 @@
         </div>
     </section>
 
-    <section id="instagram" class="reveal">
+    <section id="instagram" class="reveal section-defer">
         <div class="container">
             <div class="section-head" style="display: flex; justify-content: space-between; align-items: flex-end; flex-wrap: wrap; gap: 24px; max-width: 100%;">
                 <div style="max-width: 600px;">
@@ -325,7 +327,7 @@
         </div>
     </section>
 
-    <section id="youtube" class="reveal">
+    <section id="youtube" class="reveal section-defer">
         <div class="container">
             <div class="section-head" style="display: flex; justify-content: space-between; align-items: flex-end; flex-wrap: wrap; gap: 24px; max-width: 100%;">
                 <div style="max-width: 600px;">
@@ -380,7 +382,7 @@
         </div>
     </section>
 
-    <section id="twitch" class="reveal">
+    <section id="twitch" class="reveal section-defer">
         <div class="container">
             <div class="section-head" style="display: flex; justify-content: space-between; align-items: flex-end; flex-wrap: wrap; gap: 24px; max-width: 100%;">
                 <div style="max-width: 600px;">
@@ -430,7 +432,7 @@
         </div>
     </section>
 
-    <section id="contact" class="reveal">
+    <section id="contact" class="reveal section-defer">
         <div class="container">
             <div class="section-head">
                 <div class="eyebrow">{{ $copy['socialEyebrow'] }}</div>

@@ -26,6 +26,12 @@ document.addEventListener('DOMContentLoaded', function () {
     html.setAttribute('data-theme', theme);
     localStorage.setItem('acenaga_theme', theme);
 
+    const themeColor = document.querySelector('meta[name="theme-color"]');
+
+    if (themeColor) {
+      themeColor.setAttribute('content', theme === 'dark' ? '#0a0050' : '#fbdc6d');
+    }
+
     if (themeToggle) {
       themeToggle.textContent = theme === 'dark' ? '☀' : '☾';
     }
@@ -99,6 +105,19 @@ document.addEventListener('DOMContentLoaded', function () {
   root.querySelectorAll('.reveal').forEach(function (section) {
     revealObserver.observe(section);
   });
+
+  const marquee = root.querySelector('.stack-marquee');
+  const marqueeTrack = root.querySelector('.stack-track');
+
+  if (marquee && marqueeTrack) {
+    const marqueeObserver = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        marqueeTrack.style.animationPlayState = entry.isIntersecting ? 'running' : 'paused';
+      });
+    }, { threshold: 0 });
+
+    marqueeObserver.observe(marquee);
+  }
 
   function updateActiveSection() {
     const sectionIds = ['top', 'about', 'stack', 'classes', 'projects', 'blog', 'instagram', 'youtube', 'twitch', 'contact'];

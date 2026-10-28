@@ -1391,3 +1391,44 @@ body.crt-mode::after {
 .easter-toast.show {
   transform: translateX(-50%) translateY(0);
 }
+
+/* ============ DEFERRED RENDERING ============ */
+/* Solo secciones por debajo del pliegue inicial. */
+.section-defer {
+  content-visibility: auto;
+  contain-intrinsic-size: auto none auto 640px;
+}
+
+/* ============ SKIP LINK ============ */
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  z-index: 3000;
+  padding: 10px 16px;
+  background: var(--accent);
+  color: var(--c-purple-deep);
+  font-family: var(--f-mono);
+  font-size: 14px;
+  font-weight: 700;
+  text-decoration: none;
+  border-radius: 0 0 8px 0;
+}
+.skip-link:focus {
+  left: 0;
+}
+
+/* ============ REDUCED MOTION ============ */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
