@@ -10,9 +10,7 @@ export default defineConfig({
         laravel({
             input: [
                 'resources/css/app.css',
-                'resources/css/mockup.css',
                 'resources/js/app.js',
-                'resources/js/mockup.js',
             ],
             assets: ['resources/images/**'],
             refresh: true,
