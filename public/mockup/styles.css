@@ -1039,14 +1039,14 @@ section {
 .visitor-counter {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
-  padding: 6px 12px;
+  margin-left: 8px;
+  padding: 2px 8px;
   background: var(--c-purple-deep);
   color: var(--accent);
-  border: 2px solid var(--accent);
+  border: 1px solid var(--accent);
   border-radius: 4px;
   font-family: var(--f-pixel);
-  font-size: 18px;
+  font-size: 14px;
   letter-spacing: 0.05em;
 }
 [data-theme="light"] .visitor-counter {
@@ -1323,7 +1323,7 @@ section {
   .footer-inner { font-size: 11px; }
 
   /* visitor counter smaller */
-  .visitor-counter { font-size: 14px; padding: 5px 10px; }
+  .visitor-counter { font-size: 13px; padding: 1px 6px; margin-left: 6px; }
 
   /* hard shadows lighter on mobile to avoid clipping */
   .hard-shadow { box-shadow: 4px 4px 0 0 var(--accent); }
