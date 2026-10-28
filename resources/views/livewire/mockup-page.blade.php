@@ -169,20 +169,19 @@
             </div>
         </div>
 
-        <div class="stack-marquee">
-            <div class="stack-track">
-                @foreach (array_merge($stackMarquee, $stackMarquee) as $index => $item)
-                    <span wire:key="stack-marquee-{{ $index }}">{{ $item }}</span>
-                @endforeach
-            </div>
-        </div>
-
         <div class="container">
-            <div class="stack-grid">
-                @foreach ($stack as $index => $item)
-                    <div class="stack-chip" wire:key="stack-item-{{ $index }}">
-                        <span class="stack-chip-icon" style="font-family: var(--f-mono)">{{ $item['icon'] }}</span>
-                        <span>{{ $item['name'] }}</span>
+            <div class="stack-groups">
+                @foreach ($stackGroups as $groupIndex => $group)
+                    <div class="stack-group" wire:key="stack-group-{{ $groupIndex }}">
+                        <h3 class="stack-group-title">{{ $group['label'] }}</h3>
+                        <div class="stack-group-items">
+                            @foreach ($group['tools'] as $tool)
+                                <span class="stack-chip" wire:key="stack-group-{{ $groupIndex }}-tool-{{ $loop->index }}">
+                                    <span class="stack-chip-icon" style="font-family: var(--f-mono)">{{ $tool['icon'] }}</span>
+                                    <span>{{ $tool['name'] }}</span>
+                                </span>
+                            @endforeach
+                        </div>
                     </div>
                 @endforeach
             </div>

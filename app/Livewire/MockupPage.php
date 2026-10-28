@@ -11,11 +11,8 @@ class MockupPage extends Component
     /** @var array<int, array{num: string, label: string}> */
     public array $stats = [];
 
-    /** @var array<int, array{name: string, icon: string}> */
-    public array $stack = [];
-
-    /** @var array<int, string> */
-    public array $stackMarquee = [];
+    /** @var array<int, array{label: string, tools: array<int, array{name: string, icon: string}}> */
+    public array $stackGroups = [];
 
     /** @var array<int, array{title: string, tag: string, level: string, hours: string, desc: string}> */
     public array $classes = [];
@@ -110,26 +107,30 @@ class MockupPage extends Component
             ['num' => '6', 'label' => 'MATERIAS POR AÑO'],
         ];
 
-        $this->stack = [
-            ['name' => 'Laravel', 'icon' => '🅻'],
-            ['name' => 'PHP', 'icon' => '🐘'],
-            ['name' => 'Vue.js', 'icon' => '△'],
-            ['name' => 'Livewire', 'icon' => '⚡'],
-            ['name' => 'JavaScript', 'icon' => '{ }'],
-            ['name' => 'HTML', 'icon' => '< >'],
-            ['name' => 'CSS', 'icon' => '#'],
-            ['name' => 'Bootstrap', 'icon' => 'B'],
-            ['name' => 'Alpine.js', 'icon' => '⛰'],
-            ['name' => 'Tailwind', 'icon' => '~'],
-            ['name' => 'WordPress', 'icon' => 'W'],
-            ['name' => 'MySQL', 'icon' => '◆'],
-            ['name' => 'Git', 'icon' => '⎇'],
-            ['name' => 'Figma', 'icon' => '◐'],
-            ['name' => 'OpenAI API', 'icon' => '✦'],
-            ['name' => 'Vite', 'icon' => '⚡'],
+        $this->stackGroups = [
+            ['label' => 'Lo uso todos los días', 'tools' => [
+                ['name' => 'PHP', 'icon' => '🐘'],
+                ['name' => 'Laravel', 'icon' => '🅻'],
+                ['name' => 'Livewire', 'icon' => '⚡'],
+                ['name' => 'Vue.js', 'icon' => '△'],
+                ['name' => 'JavaScript', 'icon' => '{ }'],
+                ['name' => 'HTML', 'icon' => '< >'],
+                ['name' => 'CSS', 'icon' => '#'],
+                ['name' => 'Tailwind', 'icon' => '~'],
+            ]],
+            ['label' => 'Cuando el proyecto lo pide', 'tools' => [
+                ['name' => 'WordPress', 'icon' => 'W'],
+                ['name' => 'Bootstrap', 'icon' => 'B'],
+                ['name' => 'Alpine.js', 'icon' => '⛰'],
+            ]],
+            ['label' => 'Detrás de todo', 'tools' => [
+                ['name' => 'Git', 'icon' => '⎇'],
+                ['name' => 'MySQL', 'icon' => '◆'],
+                ['name' => 'Vite', 'icon' => '▲'],
+                ['name' => 'Figma', 'icon' => '◐'],
+                ['name' => 'OpenAI API', 'icon' => '✦'],
+            ]],
         ];
-
-        $this->stackMarquee = ['LARAVEL', 'PHP', 'VUE.JS', 'LIVEWIRE', 'JAVASCRIPT', 'BOOTSTRAP', 'WORDPRESS', 'TAILWIND', 'IA', 'OPENAI', 'GIT', 'MYSQL'];
 
         $this->classes = [
             [

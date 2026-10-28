@@ -106,19 +106,6 @@ document.addEventListener('DOMContentLoaded', function () {
     revealObserver.observe(section);
   });
 
-  const marquee = root.querySelector('.stack-marquee');
-  const marqueeTrack = root.querySelector('.stack-track');
-
-  if (marquee && marqueeTrack) {
-    const marqueeObserver = new IntersectionObserver(function (entries) {
-      entries.forEach(function (entry) {
-        marqueeTrack.style.animationPlayState = entry.isIntersecting ? 'running' : 'paused';
-      });
-    }, { threshold: 0 });
-
-    marqueeObserver.observe(marquee);
-  }
-
   function updateActiveSection() {
     const sectionIds = ['top', 'about', 'stack', 'classes', 'projects', 'blog', 'instagram', 'youtube', 'twitch', 'contact'];
     let activeId = 'top';
