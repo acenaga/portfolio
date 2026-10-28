@@ -2,26 +2,16 @@
 
 namespace App\Livewire;
 
+use App\Services\PortfolioContent;
+use Illuminate\Contracts\View\View;
 use Livewire\Component;
 
 class MockupPage extends Component
 {
     public string $carlosImage = '';
 
-    /** Foto "en acción" para el about (clase, stream, meetup). Vacío = sección solo texto. El backend la proveerá. */
-    public string $aboutImage = '';
-
-    /** @var array<int, array{num: string, label: string}> */
-    public array $stats = [];
-
-    /** @var array<int, array{label: string, tools: array<int, array{name: string, icon: string}}> */
-    public array $stackGroups = [];
-
-    /** @var array<int, array{title: string, tag: string, level: string, hours: string, desc: string}> */
-    public array $classes = [];
-
-    /** @var array<int, array{name: string, tags: array<int, string>, color: string, bg: string, icon: string, desc: string, url: string}> */
-    public array $projects = [];
+    /** @var array<int, string> */
+    public array $taglines = [];
 
     /** @var array<int, array{cat: string, date: string, readTime: string, title: string, excerpt: string}> */
     public array $posts = [];
@@ -29,23 +19,14 @@ class MockupPage extends Component
     /** @var array<int, array{type: string, color: string, accent: string, emoji: string, likes: string, cmts: string}> */
     public array $instagramPosts = [];
 
-    /** @var array<int, array{featured?: bool, title: string, duration: string, views: string, ago: string, bg: string, accent: string, emoji: string}> */
-    public array $youtubeVideos = [];
-
-    /** @var array<int, array{live?: bool, title: string, category: string, viewers?: string, duration?: string, views?: string, ago: string, bg: string, accent: string, emoji: string}> */
-    public array $twitchStreams = [];
-
-    /** @var array<int, array{name: string, handle: string, url: string, icon: string}> */
-    public array $socials = [];
-
-    /** @var array<int, string> */
-    public array $taglines = [];
-
     public array $copy = [];
+
+    private PortfolioContent $content;
 
     public function mount(string $carlosImage): void
     {
         $this->carlosImage = $carlosImage;
+        $this->content = app(PortfolioContent::class);
 
         $this->copy = [
             'navAbout' => 'Sobre mí',
@@ -101,122 +82,6 @@ class MockupPage extends Component
             'footerMade' => 'Hecho en Buenos Aires con Laravel y Livewire',
             'footerCopy' => '© 2026 Carlos Ferrer · acenagadev',
             'footerVisitor' => 'Visitante',
-        ];
-
-        $this->stats = [
-            ['num' => '10+', 'label' => 'AÑOS DE EXPERIENCIA'],
-            ['num' => '500+', 'label' => 'ESTUDIANTES'],
-            ['num' => '50+', 'label' => 'PROYECTOS'],
-            ['num' => '6', 'label' => 'MATERIAS POR AÑO'],
-        ];
-
-        $this->stackGroups = [
-            ['label' => 'Lo uso todos los días', 'tools' => [
-                ['name' => 'PHP', 'icon' => '🐘'],
-                ['name' => 'Laravel', 'icon' => '🅻'],
-                ['name' => 'Livewire', 'icon' => '⚡'],
-                ['name' => 'Vue.js', 'icon' => '△'],
-                ['name' => 'JavaScript', 'icon' => '{ }'],
-                ['name' => 'HTML', 'icon' => '< >'],
-                ['name' => 'CSS', 'icon' => '#'],
-                ['name' => 'Tailwind', 'icon' => '~'],
-            ]],
-            ['label' => 'Cuando el proyecto lo pide', 'tools' => [
-                ['name' => 'WordPress', 'icon' => 'W'],
-                ['name' => 'Bootstrap', 'icon' => 'B'],
-                ['name' => 'Alpine.js', 'icon' => '⛰'],
-            ]],
-            ['label' => 'Detrás de todo', 'tools' => [
-                ['name' => 'Git', 'icon' => '⎇'],
-                ['name' => 'MySQL', 'icon' => '◆'],
-                ['name' => 'Vite', 'icon' => '▲'],
-                ['name' => 'Figma', 'icon' => '◐'],
-                ['name' => 'OpenAI API', 'icon' => '✦'],
-            ]],
-        ];
-
-        $this->classes = [
-            [
-                'title' => 'Maquetado y Desarrollo Web',
-                'tag' => 'HTML · CSS',
-                'level' => 'Inicial',
-                'hours' => '64hs',
-                'desc' => 'Los cimientos de todo. Aprendemos a estructurar contenido con HTML semántico y a darle vida con CSS moderno: flexbox, grid, animaciones y diseño responsive sin frameworks.',
-            ],
-            [
-                'title' => 'Programación I',
-                'tag' => 'JavaScript',
-                'level' => 'Inicial',
-                'hours' => '64hs',
-                'desc' => 'Tu primer hola mundo que en realidad responde. Variables, condicionales, funciones, DOM y eventos. Salimos pudiendo construir interactividad real en el navegador.',
-            ],
-            [
-                'title' => 'Programación con Entornos',
-                'tag' => 'WordPress',
-                'level' => 'Intermedio',
-                'hours' => '64hs',
-                'desc' => 'WordPress sin miedo: temas hijos, custom post types, hooks y un poquito de plugin propio. Salís pudiendo entregar sitios profesionales y mantenibles.',
-            ],
-            [
-                'title' => 'Portales y Comercio Electrónico',
-                'tag' => 'Laravel',
-                'level' => 'Intermedio',
-                'hours' => '96hs',
-                'desc' => 'Construimos un e-commerce real con Laravel: catálogos, carrito, pagos, panel admin. Buenas prácticas, MVC, Eloquent y mucho debugging compartido.',
-            ],
-            [
-                'title' => 'Aplicaciones Web Progresivas',
-                'tag' => 'JavaScript',
-                'level' => 'Avanzado',
-                'hours' => '64hs',
-                'desc' => 'PWAs en serio. Service workers, cache estratégica, instalación, push notifications y todo lo que hace que tu web se sienta como una app nativa.',
-            ],
-            [
-                'title' => 'Producción Web',
-                'tag' => 'Laravel',
-                'level' => 'Avanzado',
-                'hours' => '96hs',
-                'desc' => 'Como se hace en la vida real: deploy, testing, queues, jobs, APIs, autenticación robusta y patrones de arquitectura para apps que no se rompan en producción.',
-            ],
-        ];
-
-        $this->projects = [
-            [
-                'name' => 'Mentoría Bot',
-                'tags' => ['Laravel', 'OpenAI', 'Livewire'],
-                'color' => '#ffc932',
-                'bg' => '#110090',
-                'icon' => '🤖',
-                'desc' => 'Asistente con IA que ayuda a alumnos a debuggear código en tiempo real. Detecta intenciones del estudiante y devuelve explicaciones, no soluciones.',
-                'url' => '#',
-            ],
-            [
-                'name' => 'Cursos.dev',
-                'tags' => ['Laravel', 'Vue', 'MySQL'],
-                'color' => '#110090',
-                'bg' => '#fbdc6d',
-                'icon' => '🎓',
-                'desc' => 'Plataforma de cursos online en español con video, transcripciones, ejercicios autocorregidos y comunidad. Más de 2.000 estudiantes activos.',
-                'url' => '#',
-            ],
-            [
-                'name' => 'StreamHub LATAM',
-                'tags' => ['Vue', 'Tailwind', 'API'],
-                'color' => '#fbdc6d',
-                'bg' => '#4c2e84',
-                'icon' => '📡',
-                'desc' => 'Dashboard que agrega streams de Twitch, YouTube y Kick de devs hispanohablantes. Útil para descubrir contenido y ver quién está en vivo.',
-                'url' => '#',
-            ],
-            [
-                'name' => 'CodeRoast',
-                'tags' => ['Livewire', 'Alpine', 'IA'],
-                'color' => '#5f3a92',
-                'bg' => '#ffc932',
-                'icon' => '🔥',
-                'desc' => 'Subes un snippet de código y la IA lo roastea con humor mientras te enseña qué se puede mejorar. Un proyecto pasión que se volvió viral.',
-                'url' => '#',
-            ],
         ];
 
         $this->posts = [
@@ -279,30 +144,6 @@ class MockupPage extends Component
             ['type' => 'post', 'color' => '#fbdc6d', 'accent' => '#110090', 'emoji' => '💻', 'likes' => '6.7K', 'cmts' => '145'],
         ];
 
-        $this->youtubeVideos = [
-            ['featured' => true, 'title' => 'Curso completo de Laravel 11 desde cero (4 horas)', 'duration' => '4:12:34', 'views' => '142K', 'ago' => 'hace 2 semanas', 'bg' => '#110090', 'accent' => '#ffc932', 'emoji' => '🅻'],
-            ['title' => 'Construyendo un chatbot con IA en Laravel', 'duration' => '38:21', 'views' => '24K', 'ago' => 'hace 1 mes', 'bg' => '#ffc932', 'accent' => '#110090', 'emoji' => '🤖'],
-            ['title' => 'Livewire 3: lo que nadie te explica', 'duration' => '22:08', 'views' => '67K', 'ago' => 'hace 1 mes', 'bg' => '#4c2e84', 'accent' => '#fbdc6d', 'emoji' => '⚡'],
-            ['title' => 'Mi setup de profesor + streamer en 2026', 'duration' => '15:42', 'views' => '18K', 'ago' => 'hace 2 meses', 'bg' => '#fbdc6d', 'accent' => '#110090', 'emoji' => '🎥'],
-            ['title' => 'PHP no está muerto (y aquí lo demuestro)', 'duration' => '28:15', 'views' => '89K', 'ago' => 'hace 3 meses', 'bg' => '#5f3a92', 'accent' => '#ffc932', 'emoji' => '🐘'],
-        ];
-
-        $this->twitchStreams = [
-            ['live' => true, 'title' => 'Construyendo un SaaS con Laravel + Livewire EN VIVO', 'category' => 'Software & Game Development', 'viewers' => '1.2K', 'ago' => 'ahora', 'bg' => '#9146ff', 'accent' => '#ffc932', 'emoji' => '🔴'],
-            ['title' => 'Refactor brutal: limpiando código de hace 5 años', 'category' => 'Software Development', 'duration' => '3:42:18', 'views' => '8.4K', 'ago' => 'hace 2 días', 'bg' => '#110090', 'accent' => '#ffc932', 'emoji' => '🧹'],
-            ['title' => 'Aprendiendo Vue 3 con la comunidad', 'category' => 'Software Development', 'duration' => '2:18:05', 'views' => '5.7K', 'ago' => 'hace 5 días', 'bg' => '#4c2e84', 'accent' => '#fbdc6d', 'emoji' => '△'],
-            ['title' => 'Code Review en vivo de proyectos de la comunidad', 'category' => 'Just Chatting', 'duration' => '4:05:32', 'views' => '12.1K', 'ago' => 'hace 1 semana', 'bg' => '#ffc932', 'accent' => '#110090', 'emoji' => '👀'],
-        ];
-
-        $this->socials = [
-            ['name' => 'YouTube', 'handle' => '@acenagadev', 'url' => 'https://youtube.com/@acenagadev', 'icon' => 'youtube'],
-            ['name' => 'Instagram', 'handle' => '@acenaga.dev', 'url' => 'https://instagram.com/acenaga.dev', 'icon' => 'instagram'],
-            ['name' => 'Twitch', 'handle' => 'acenagadev', 'url' => 'https://twitch.tv/acenagadev', 'icon' => 'twitch'],
-            ['name' => 'Kick', 'handle' => 'acenagadev', 'url' => 'https://kick.com/acenagadev', 'icon' => 'kick'],
-            ['name' => 'X / Twitter', 'handle' => '@acenagadev', 'url' => 'https://x.com/acenagadev', 'icon' => 'x'],
-            ['name' => 'Threads', 'handle' => '@acenaga.dev', 'url' => 'https://threads.net/@acenaga.dev', 'icon' => 'threads'],
-        ];
-
         $this->taglines = [
             'Profesor en DaVinci y dev full-stack',
             'Hago videos y streams sobre lo que construyo',
@@ -313,8 +154,17 @@ class MockupPage extends Component
         ];
     }
 
-    public function render()
+    public function render(): View
     {
-        return view('livewire.mockup-page');
+        return view('livewire.mockup-page', [
+            'aboutImage' => null,
+            'stats' => $this->content->stats(),
+            'stackGroups' => $this->content->stackGroups(),
+            'courses' => $this->content->courses(),
+            'projects' => $this->content->projects(),
+            'youtubeVideos' => $this->content->youtubeVideos(),
+            'twitchVideos' => $this->content->twitchVideos(),
+            'socials' => $this->content->socials(),
+        ]);
     }
 }

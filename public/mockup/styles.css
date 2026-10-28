@@ -673,6 +673,29 @@ section {
   position: relative;
   overflow: hidden;
   border-bottom: 3px solid var(--ink);
+  --thumb-ink: var(--c-purple-deep);
+  color: var(--thumb-ink);
+  background: var(--c-purple-deep);
+}
+.project-card:nth-child(4n+2) .project-thumb {
+  background: var(--c-yellow-soft);
+  --thumb-ink: var(--c-purple-deep);
+}
+.project-card:nth-child(4n+3) .project-thumb {
+  background: var(--c-purple-mid);
+  --thumb-ink: var(--c-yellow-soft);
+}
+.project-card:nth-child(4n) .project-thumb {
+  background: var(--c-yellow-warm);
+  --thumb-ink: var(--c-purple-deep);
+}
+.project-thumb::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(circle, color-mix(in srgb, var(--thumb-ink) 20%, transparent) 1px, transparent 1px);
+  background-size: 20px 20px;
+  opacity: 0.6;
 }
 .project-thumb-inner {
   position: absolute;
@@ -683,6 +706,10 @@ section {
   font-weight: 700;
   font-size: 64px;
   letter-spacing: -0.04em;
+}
+.project-thumb-inner > div:last-child {
+  position: relative;
+  text-align: center;
 }
 .project-body {
   padding: 22px 24px 26px;
@@ -877,6 +904,28 @@ section {
   aspect-ratio: 16/9;
   position: relative;
   overflow: hidden;
+  --thumb-ink: var(--c-purple-deep);
+  color: var(--thumb-ink);
+  background: var(--c-purple-deep);
+}
+.yt-grid .yt-card:nth-child(4n+2) .yt-thumb {
+  background: var(--c-yellow-soft);
+  --thumb-ink: var(--c-purple-deep);
+}
+.yt-grid .yt-card:nth-child(4n+3) .yt-thumb {
+  background: var(--c-purple-mid);
+  --thumb-ink: var(--c-yellow-soft);
+}
+.yt-grid .yt-card:nth-child(4n) .yt-thumb {
+  background: var(--c-yellow-warm);
+  --thumb-ink: var(--c-purple-deep);
+}
+.yt-thumb-icon {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  color: var(--thumb-ink);
 }
 .yt-card.featured .yt-thumb {
   aspect-ratio: 16/11;

@@ -2,13 +2,16 @@
 
 namespace App\Models;
 
+use App\Observers\PortfolioContentObserver;
 use Database\Factories\StackGroupFactory;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
+use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
+#[ObservedBy(PortfolioContentObserver::class)]
 #[Fillable(['label', 'sort', 'is_published'])]
 class StackGroup extends Model
 {

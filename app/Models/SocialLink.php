@@ -2,12 +2,15 @@
 
 namespace App\Models;
 
+use App\Observers\PortfolioContentObserver;
 use Database\Factories\SocialLinkFactory;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
+use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+#[ObservedBy(PortfolioContentObserver::class)]
 #[Fillable(['name', 'handle', 'url', 'icon', 'sort', 'is_published'])]
 class SocialLink extends Model
 {

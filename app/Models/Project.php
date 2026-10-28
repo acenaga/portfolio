@@ -2,13 +2,16 @@
 
 namespace App\Models;
 
+use App\Observers\PortfolioContentObserver;
 use Database\Factories\ProjectFactory;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Attributes\Hidden;
+use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+#[ObservedBy(PortfolioContentObserver::class)]
 #[Fillable([
     'name',
     'description',

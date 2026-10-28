@@ -1,8 +1,8 @@
 @php
     use Illuminate\Support\Str;
 
-    $featuredVideo = collect($youtubeVideos)->firstWhere('featured', true);
-    $secondaryVideos = collect($youtubeVideos)->reject(fn (array $video): bool => ($video['featured'] ?? false) === true)->values();
+    $featuredVideo = collect($youtubeVideos)->firstWhere('is_featured', true);
+    $secondaryVideos = collect($youtubeVideos)->reject(fn ($video): bool => $video->is_featured)->values();
 @endphp
 
 <div data-mockup-root>
@@ -131,7 +131,7 @@
 
     <section id="about" class="reveal section-defer">
         <div class="container">
-            <div class="about-grid{{ $aboutImage === '' ? ' about-grid--text' : '' }}">
+            <div class="about-grid{{ empty($aboutImage) ? ' about-grid--text' : '' }}">
                 <div class="about-text">
                     <div class="eyebrow">{{ $copy['aboutEyebrow'] }}</div>
                     <h2 class="section-title">{!! $copy['aboutTitle'] !!}</h2>
@@ -143,16 +143,16 @@
                     </div>
 
                     <div class="stat-grid">
-                        @foreach ($stats as $index => $stat)
-                            <div class="stat" wire:key="stat-{{ $index }}">
-                                <div class="stat-num">{{ $stat['num'] }}</div>
-                                <div class="stat-label">{{ $stat['label'] }}</div>
-                            </div>
-                        @endforeach
+                    @foreach ($stats as $index => $stat)
+                        <div class="stat" wire:key="stat-{{ $index }}">
+                            <div class="stat-num">{{ $stat->value }}</div>
+                            <div class="stat-label">{{ $stat->label }}</div>
+                        </div>
+                    @endforeach
                     </div>
                 </div>
 
-                @if ($aboutImage !== '')
+                @if (! empty($aboutImage))
                     <div class="about-photo-wrap">
                         <div class="about-photo-frame"></div>
                         <img src="{{ $aboutImage }}" alt="Carlos Ferrer dando clase" class="about-photo">
@@ -176,12 +176,12 @@
             <div class="stack-groups">
                 @foreach ($stackGroups as $groupIndex => $group)
                     <div class="stack-group" wire:key="stack-group-{{ $groupIndex }}">
-                        <h3 class="stack-group-title">{{ $group['label'] }}</h3>
+                        <h3 class="stack-group-title">{{ $group->label }}</h3>
                         <div class="stack-group-items">
-                            @foreach ($group['tools'] as $tool)
+                            @foreach ($group->tools as $tool)
                                 <span class="stack-chip" wire:key="stack-group-{{ $groupIndex }}-tool-{{ $loop->index }}">
-                                    <span class="stack-chip-icon" style="font-family: var(--f-mono)">{{ $tool['icon'] }}</span>
-                                    <span>{{ $tool['name'] }}</span>
+                                    <span class="stack-chip-icon" style="font-family: var(--f-mono)">{{ $tool->icon }}</span>
+                                    <span>{{ $tool->name }}</span>
                                 </span>
                             @endforeach
                         </div>
@@ -200,15 +200,15 @@
             </div>
 
             <div class="classes-grid">
-                @foreach ($classes as $index => $class)
+                @foreach ($courses as $index => $course)
                     <article class="class-card" wire:key="class-card-{{ $index }}">
                         <span class="class-num">[{{ str_pad((string) ($index + 1), 2, '0', STR_PAD_LEFT) }}]</span>
-                        <div class="class-tag">{{ $class['tag'] }}</div>
-                        <h3 class="class-title">{{ $class['title'] }}</h3>
-                        <p class="class-desc">{{ $class['desc'] }}</p>
+                        <div class="class-tag">{{ $course->tag }}</div>
+                        <h3 class="class-title">{{ $course->title }}</h3>
+                        <p class="class-desc">{{ $course->description }}</p>
                         <div class="class-meta">
-                            <span><x-mockup-icon name="sparkles" :size="12" /> {{ $class['level'] }}</span>
-                            <span><x-mockup-icon name="clock" :size="12" /> {{ $class['hours'] }}</span>
+                            <span><x-mockup-icon name="sparkles" :size="12" /> {{ $course->level->value }}</span>
+                            <span><x-mockup-icon name="clock" :size="12" /> {{ $course->hours }}hs</span>
                         </div>
                     </article>
                 @endforeach
@@ -226,14 +226,13 @@
 
             <div class="projects-grid">
                 @foreach ($projects as $index => $project)
-                    <a href="{{ $project['url'] }}" class="project-card" wire:key="project-card-{{ $index }}">
-                        <div class="project-thumb" style="background: {{ $project['bg'] }};">
-                            <div class="project-thumb-inner" style="color: {{ $project['color'] }}; position: relative;">
-                                <div style="position: absolute; inset: 0; background-image: radial-gradient(circle, {{ $project['color'] }}33 1px, transparent 1px); background-size: 20px 20px; opacity: 0.6;"></div>
-                                <div style="position: relative; text-align: center;">
-                                    <div style="font-size: 72px; margin-bottom: 8px;">{{ $project['icon'] }}</div>
+                    <a href="{{ $project->url }}" class="project-card" wire:key="project-card-{{ $index }}">
+                        <div class="project-thumb">
+                            <div class="project-thumb-inner">
+                                <div>
+                                    <div style="font-size: 72px; margin-bottom: 8px;">{{ $project->icon }}</div>
                                     <div style="font-family: var(--f-mono); font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase; opacity: 0.8;">
-                                        ./{{ Str::slug($project['name']) }}
+                                        ./{{ Str::slug($project->name) }}
                                     </div>
                                 </div>
                             </div>
@@ -241,17 +240,17 @@
 
                         <div class="project-body">
                             <div class="project-tags">
-                                @foreach ($project['tags'] as $tagIndex => $tag)
+                                @foreach ($project->tags ?? [] as $tagIndex => $tag)
                                     <span class="project-tag" wire:key="project-tag-{{ $index }}-{{ $tagIndex }}">{{ $tag }}</span>
                                 @endforeach
                             </div>
 
                             <h3 class="project-name">
-                                {{ $project['name'] }}
+                                {{ $project->name }}
                                 <span class="project-arrow"><x-mockup-icon name="arrow-up-right" :size="16" /></span>
                             </h3>
 
-                            <p class="project-desc">{{ $project['desc'] }}</p>
+                            <p class="project-desc">{{ $project->description }}</p>
                         </div>
                     </a>
                 @endforeach
@@ -346,37 +345,37 @@
 
             <div class="yt-grid">
                 @if ($featuredVideo)
-                    <a href="https://youtube.com/@acenagadev" class="yt-card featured">
-                        <div class="yt-thumb" style="background: {{ $featuredVideo['bg'] }};">
-                            <div style="position: absolute; inset: 0; display: grid; place-items: center; color: {{ $featuredVideo['accent'] }}; font-size: 96px;">{{ $featuredVideo['emoji'] }}</div>
-                            <div style="position: absolute; bottom: 12px; left: 12px; font-family: var(--f-mono); font-size: 10px; color: {{ $featuredVideo['accent'] }}; letter-spacing: 0.15em; text-transform: uppercase; opacity: 0.85;">./video_001.mp4</div>
+                    <a href="{{ $featuredVideo->url }}" class="yt-card featured">
+                        <div class="yt-thumb">
+                            <div class="yt-thumb-icon" style="font-size: 96px;">{{ $featuredVideo->icon }}</div>
+                            <div style="position: absolute; bottom: 12px; left: 12px; font-family: var(--f-mono); font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; opacity: 0.85;">./video_001.mp4</div>
                             <div class="yt-play">
                                 <div class="yt-play-icon"><x-mockup-icon name="play" :size="26" /></div>
                             </div>
-                            <div class="yt-duration">{{ $featuredVideo['duration'] }}</div>
+                            <div class="yt-duration">{{ $featuredVideo->duration_formatted }}</div>
                         </div>
 
                         <div class="yt-body">
-                            <h3 class="yt-title">{{ $featuredVideo['title'] }}</h3>
-                            <div class="yt-meta"><x-mockup-icon name="eye" :size="11" /> {{ $featuredVideo['views'] }} views · {{ $featuredVideo['ago'] }}</div>
+                            <h3 class="yt-title">{{ $featuredVideo->title }}</h3>
+                            <div class="yt-meta"><x-mockup-icon name="eye" :size="11" /> {{ Number::abbreviate($featuredVideo->views ?? 0) }} views · {{ $featuredVideo->published_at?->diffForHumans() }}</div>
                         </div>
                     </a>
                 @endif
 
                 @foreach ($secondaryVideos as $index => $video)
-                    <a href="https://youtube.com/@acenagadev" class="yt-card" wire:key="yt-card-{{ $index }}">
-                        <div class="yt-thumb" style="background: {{ $video['bg'] }};">
-                            <div style="position: absolute; inset: 0; display: grid; place-items: center; color: {{ $video['accent'] }}; font-size: 64px;">{{ $video['emoji'] }}</div>
-                            <div style="position: absolute; bottom: 12px; left: 12px; font-family: var(--f-mono); font-size: 10px; color: {{ $video['accent'] }}; letter-spacing: 0.15em; text-transform: uppercase; opacity: 0.85;">./video_{{ str_pad((string) ($index + 2), 3, '0', STR_PAD_LEFT) }}.mp4</div>
+                    <a href="{{ $video->url }}" class="yt-card" wire:key="yt-card-{{ $index }}">
+                        <div class="yt-thumb">
+                            <div class="yt-thumb-icon" style="font-size: 64px;">{{ $video->icon }}</div>
+                            <div style="position: absolute; bottom: 12px; left: 12px; font-family: var(--f-mono); font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; opacity: 0.85;">./video_{{ str_pad((string) ($index + 2), 3, '0', STR_PAD_LEFT) }}.mp4</div>
                             <div class="yt-play">
                                 <div class="yt-play-icon"><x-mockup-icon name="play" :size="26" /></div>
                             </div>
-                            <div class="yt-duration">{{ $video['duration'] }}</div>
+                            <div class="yt-duration">{{ $video->duration_formatted }}</div>
                         </div>
 
                         <div class="yt-body">
-                            <h3 class="yt-title">{{ $video['title'] }}</h3>
-                            <div class="yt-meta"><x-mockup-icon name="eye" :size="11" /> {{ $video['views'] }} views · {{ $video['ago'] }}</div>
+                            <h3 class="yt-title">{{ $video->title }}</h3>
+                            <div class="yt-meta"><x-mockup-icon name="eye" :size="11" /> {{ Number::abbreviate($video->views ?? 0) }} views · {{ $video->published_at?->diffForHumans() }}</div>
                         </div>
                     </a>
                 @endforeach
@@ -400,31 +399,31 @@
             </div>
 
             <div class="yt-grid">
-                @foreach ($twitchStreams as $index => $stream)
-                    <a href="https://twitch.tv/acenagadev" class="yt-card{{ ! empty($stream['live']) && $index === 0 ? ' featured' : '' }}" wire:key="tw-card-{{ $index }}">
-                        <div class="yt-thumb" style="background: {{ $stream['bg'] }};">
-                            <div style="position: absolute; inset: 0; display: grid; place-items: center; color: {{ $stream['accent'] }}; font-size: 72px;">{{ $stream['emoji'] }}</div>
+                @foreach ($twitchVideos as $index => $video)
+                    <a href="{{ $video->url }}" class="yt-card{{ $video->is_featured && $index === 0 ? ' featured' : '' }}" wire:key="tw-card-{{ $index }}">
+                        <div class="yt-thumb">
+                            <div class="yt-thumb-icon" style="font-size: 72px;">{{ $video->icon }}</div>
                             <div class="yt-duration">
-                                @if (! empty($stream['live']))
+                                @if ($video->is_live)
                                     {{ $copy['twLive'] }}
                                 @else
-                                    {{ $stream['duration'] }}
+                                    {{ $video->duration_formatted }}
                                 @endif
                             </div>
                         </div>
 
                         <div class="yt-body">
                             <div class="post-meta" style="margin-bottom: 10px;">
-                                <span class="post-cat">{{ ! empty($stream['live']) ? $copy['twLive'] : $copy['twVod'] }}</span>
-                                <span>{{ $stream['category'] }}</span>
+                                <span class="post-cat">{{ $video->is_live ? $copy['twLive'] : $copy['twVod'] }}</span>
+                                <span>{{ $video->category }}</span>
                             </div>
-                            <h3 class="yt-title">{{ $stream['title'] }}</h3>
+                            <h3 class="yt-title">{{ $video->title }}</h3>
                             <div class="yt-meta">
                                 <x-mockup-icon name="eye" :size="11" />
-                                @if (! empty($stream['live']))
-                                    {{ $stream['viewers'] }} viewers · {{ $stream['ago'] }}
+                                @if ($video->is_live)
+                                    ahora
                                 @else
-                                    {{ $stream['views'] }} views · {{ $stream['ago'] }}
+                                    {{ Number::abbreviate($video->views ?? 0) }} views · {{ $video->published_at?->diffForHumans() }}
                                 @endif
                             </div>
                         </div>
@@ -444,11 +443,11 @@
 
             <div class="social-grid">
                 @foreach ($socials as $index => $social)
-                    <a href="{{ $social['url'] }}" class="social-card" wire:key="social-card-{{ $index }}" style="transform: rotate({{ $index % 2 === 0 ? '-0.6deg' : '0.6deg' }});">
-                        <div class="social-icon"><x-mockup-icon :name="$social['icon']" :size="22" /></div>
+                    <a href="{{ $social->url }}" class="social-card" wire:key="social-card-{{ $index }}" style="transform: rotate({{ $index % 2 === 0 ? '-0.6deg' : '0.6deg' }});">
+                        <div class="social-icon"><x-mockup-icon :name="$social->icon" :size="22" /></div>
                         <div>
-                            <div class="social-name">{{ $social['name'] }}</div>
-                            <div class="social-handle">{{ $social['handle'] }}</div>
+                            <div class="social-name">{{ $social->name }}</div>
+                            <div class="social-handle">{{ $social->handle }}</div>
                         </div>
                         <div style="margin-left: auto;"><x-mockup-icon name="arrow-up-right" :size="18" /></div>
                     </a>
