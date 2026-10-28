@@ -334,8 +334,8 @@ input, textarea { font: inherit; }
 
 /* ============ HERO ============ */
 .hero {
-  min-height: 100vh;
-  padding: 120px 0 80px;
+  min-height: auto;
+  padding: 96px 0 72px;
   display: flex;
   align-items: center;
   position: relative;
