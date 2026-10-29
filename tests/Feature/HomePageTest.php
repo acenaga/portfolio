@@ -1,6 +1,6 @@
 <?php
 
-test('users can visit the mockup page', function () {
+test('users can visit the home page', function () {
     $response = $this->get(route('home'));
 
     $response->assertSuccessful();

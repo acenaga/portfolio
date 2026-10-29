@@ -18,7 +18,7 @@ class SiteFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'name' => 'acenaga.dev',
         ];
     }
 }

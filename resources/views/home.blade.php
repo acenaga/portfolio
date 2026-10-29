@@ -47,7 +47,7 @@
     <link rel="stylesheet" href="{{ asset('mockup/styles.css').'?v='.filemtime(public_path('mockup/styles.css')) }}">
 </head>
 <body>
-    <livewire:mockup-page :hero-image="$heroImage" />
+    <livewire:home-page :hero-image="$heroImage" />
     <script src="{{ asset('mockup/livewire.js') }}" defer></script>
 </body>
 </html>

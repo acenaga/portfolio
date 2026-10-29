@@ -8,7 +8,7 @@ use App\Settings\SiteSettings;
 use Illuminate\Contracts\View\View;
 use Livewire\Component;
 
-class MockupPage extends Component
+class HomePage extends Component
 {
     /** @var array<int, array{type: string, color: string, accent: string, emoji: string, likes: string, cmts: string}> */
     public array $instagramPosts = [];
@@ -98,7 +98,7 @@ class MockupPage extends Component
         $site = Site::query()->first();
         $settings = app(SiteSettings::class);
 
-        return view('livewire.mockup-page', [
+        return view('livewire.home-page', [
             'taglines' => $settings->taglines,
             'posts' => $this->content->posts(),
             'heroImage' => $site?->getFirstMediaUrl('hero') ?: asset('mockup/og-cover.jpg'),
