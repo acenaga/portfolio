@@ -268,21 +268,22 @@
 
             <div class="posts-grid">
                 @foreach ($posts as $index => $post)
-                    <article class="post-card" wire:key="post-card-{{ $index }}">
+                    <a href="{{ $post->url }}" target="_blank" rel="noopener" class="post-card" wire:key="post-card-{{ $index }}" style="text-decoration: none; color: inherit;">
                         <div class="post-meta">
-                            <span class="post-cat">{{ $post['cat'] }}</span>
-                            <span>{{ $post['date'] }}</span>
-                            <span>· {{ $post['readTime'] }}</span>
+                            <span class="post-cat">{{ collect($post->tags ?? [])->first() ?? 'Blog' }}</span>
+                            <span>{{ $post->published_at?->translatedFormat('d M Y') }}</span>
                         </div>
 
-                        <h3 class="post-title">{{ $post['title'] }}</h3>
-                        <p class="post-excerpt">{{ $post['excerpt'] }}</p>
+                        <h3 class="post-title">{{ $post->title }}</h3>
+                        @if ($post->excerpt)
+                            <p class="post-excerpt">{{ $post->excerpt }}</p>
+                        @endif
 
                         <div style="margin-top: 18px; font-family: var(--f-mono); font-size: 12px; color: var(--accent); display: inline-flex; gap: 6px; align-items: center;">
                             {{ $copy['blogReadMore'] }}
                             <x-mockup-icon name="arrow-right" :size="12" />
                         </div>
-                    </article>
+                    </a>
                 @endforeach
             </div>
         </div>

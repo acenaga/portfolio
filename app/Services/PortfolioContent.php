@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Models\Course;
+use App\Models\Post;
 use App\Models\Project;
 use App\Models\SiteStat;
 use App\Models\SocialLink;
@@ -27,6 +28,13 @@ final class PortfolioContent
         Cache::delete(self::PREFIX.'youtube_videos');
         Cache::delete(self::PREFIX.'twitch_videos');
         Cache::delete(self::PREFIX.'socials');
+        Cache::delete(self::PREFIX.'posts');
+    }
+
+    /** @return Collection<int, Post> */
+    public static function posts(): Collection
+    {
+        return Cache::rememberForever(self::PREFIX.'posts', fn () => Post::query()->visible()->limit(6)->get());
     }
 
     /** @return Collection<int, SiteStat> */

@@ -10,12 +10,6 @@ use Livewire\Component;
 
 class MockupPage extends Component
 {
-    /** @var array<int, string> */
-    public array $taglines = [];
-
-    /** @var array<int, array{cat: string, date: string, readTime: string, title: string, excerpt: string}> */
-    public array $posts = [];
-
     /** @var array<int, array{type: string, color: string, accent: string, emoji: string, likes: string, cmts: string}> */
     public array $instagramPosts = [];
 
@@ -26,11 +20,9 @@ class MockupPage extends Component
     public function mount(): void
     {
         $this->content = app(PortfolioContent::class);
-
         $settings = app(SiteSettings::class);
 
-        $this->copy = [
-            'navAbout' => 'Sobre mí',
+        $this->copy = ['navAbout' => 'Sobre mí',
             'navStack' => 'Stack',
             'navClasses' => 'Materias',
             'navProjects' => 'Proyectos',
@@ -85,51 +77,6 @@ class MockupPage extends Component
             'footerVisitor' => 'Visitante',
         ];
 
-        $this->posts = [
-            [
-                'cat' => 'Laravel',
-                'date' => '15 ABR 2026',
-                'readTime' => '6 min',
-                'title' => 'Por qué Livewire cambió cómo enseño full-stack',
-                'excerpt' => 'Un repaso honesto de cómo dejé de explicar APIs REST en clase y empecé con componentes server-side. Pros, contras y código.',
-            ],
-            [
-                'cat' => 'Carrera',
-                'date' => '02 ABR 2026',
-                'readTime' => '4 min',
-                'title' => 'El síndrome del impostor del programador',
-                'excerpt' => 'Diez años haciendo esto y todavía dudo de mí mismo. Cómo aprendí a convivir y por qué no es solo cosa de juniors.',
-            ],
-            [
-                'cat' => 'IA',
-                'date' => '20 MAR 2026',
-                'readTime' => '8 min',
-                'title' => 'Construí mi propio Copilot con Laravel y OpenAI',
-                'excerpt' => 'Tutorial paso a paso de cómo armar un asistente de código integrado en tu app, con streaming de respuestas y rate limiting.',
-            ],
-            [
-                'cat' => 'Docencia',
-                'date' => '10 MAR 2026',
-                'readTime' => '5 min',
-                'title' => 'Lo que aprendí enseñando a 500 alumnos',
-                'excerpt' => 'Patrones que se repiten, las preguntas que más cuestan, y por qué a veces dejar fallar al alumno es la mejor lección.',
-            ],
-            [
-                'cat' => 'Vue',
-                'date' => '28 FEB 2026',
-                'readTime' => '7 min',
-                'title' => 'Vue 3 + Composition API: cuándo usarla',
-                'excerpt' => 'No todo proyecto necesita la Composition API. Una guía pragmática basada en proyectos reales en producción.',
-            ],
-            [
-                'cat' => 'Off-topic',
-                'date' => '14 FEB 2026',
-                'readTime' => '3 min',
-                'title' => 'Mi setup de developer + creador de contenido',
-                'excerpt' => 'Cámaras, micros, software, atajos de teclado y por qué uso una iluminación que parece exagerada.',
-            ],
-        ];
-
         $this->instagramPosts = [
             ['type' => 'reel', 'color' => '#110090', 'accent' => '#ffc932', 'emoji' => '🎬', 'likes' => '12.4K', 'cmts' => '342'],
             ['type' => 'carousel', 'color' => '#ffc932', 'accent' => '#110090', 'emoji' => '🎯', 'likes' => '8.7K', 'cmts' => '156'],
@@ -144,15 +91,16 @@ class MockupPage extends Component
             ['type' => 'carousel', 'color' => '#5f3a92', 'accent' => '#fbdc6d', 'emoji' => '✨', 'likes' => '8.3K', 'cmts' => '267'],
             ['type' => 'post', 'color' => '#fbdc6d', 'accent' => '#110090', 'emoji' => '💻', 'likes' => '6.7K', 'cmts' => '145'],
         ];
-
-        $this->taglines = $settings->taglines;
     }
 
     public function render(): View
     {
         $site = Site::query()->first();
+        $settings = app(SiteSettings::class);
 
         return view('livewire.mockup-page', [
+            'taglines' => $settings->taglines,
+            'posts' => $this->content->posts(),
             'heroImage' => $site?->getFirstMediaUrl('hero') ?: asset('mockup/og-cover.jpg'),
             'aboutImage' => $site?->getFirstMediaUrl('about') ?: null,
             'stats' => $this->content->stats(),
