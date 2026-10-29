@@ -10,9 +10,6 @@ use Livewire\Component;
 
 class HomePage extends Component
 {
-    /** @var array<int, array{type: string, color: string, accent: string, emoji: string, likes: string, cmts: string}> */
-    public array $instagramPosts = [];
-
     public array $copy = [];
 
     private PortfolioContent $content;
@@ -76,21 +73,6 @@ class HomePage extends Component
             'footerCopy' => '© 2026 Carlos Ferrer · acenagadev',
             'footerVisitor' => 'Visitante',
         ];
-
-        $this->instagramPosts = [
-            ['type' => 'reel', 'color' => '#110090', 'accent' => '#ffc932', 'emoji' => '🎬', 'likes' => '12.4K', 'cmts' => '342'],
-            ['type' => 'carousel', 'color' => '#ffc932', 'accent' => '#110090', 'emoji' => '🎯', 'likes' => '8.7K', 'cmts' => '156'],
-            ['type' => 'post', 'color' => '#4c2e84', 'accent' => '#fbdc6d', 'emoji' => '💡', 'likes' => '5.2K', 'cmts' => '87'],
-            ['type' => 'reel', 'color' => '#fbdc6d', 'accent' => '#110090', 'emoji' => '⚡', 'likes' => '21.8K', 'cmts' => '512'],
-            ['type' => 'carousel', 'color' => '#5f3a92', 'accent' => '#ffc932', 'emoji' => '📚', 'likes' => '6.4K', 'cmts' => '203'],
-            ['type' => 'post', 'color' => '#110090', 'accent' => '#fbdc6d', 'emoji' => '🚀', 'likes' => '9.1K', 'cmts' => '178'],
-            ['type' => 'reel', 'color' => '#f6c745', 'accent' => '#110090', 'emoji' => '🔥', 'likes' => '15.3K', 'cmts' => '421'],
-            ['type' => 'carousel', 'color' => '#4c2e84', 'accent' => '#ffc932', 'emoji' => '🧠', 'likes' => '7.8K', 'cmts' => '231'],
-            ['type' => 'post', 'color' => '#ffc932', 'accent' => '#110090', 'emoji' => '😅', 'likes' => '11.2K', 'cmts' => '298'],
-            ['type' => 'reel', 'color' => '#110090', 'accent' => '#fbdc6d', 'emoji' => '☕', 'likes' => '4.9K', 'cmts' => '102'],
-            ['type' => 'carousel', 'color' => '#5f3a92', 'accent' => '#fbdc6d', 'emoji' => '✨', 'likes' => '8.3K', 'cmts' => '267'],
-            ['type' => 'post', 'color' => '#fbdc6d', 'accent' => '#110090', 'emoji' => '💻', 'likes' => '6.7K', 'cmts' => '145'],
-        ];
     }
 
     public function render(): View
@@ -99,6 +81,7 @@ class HomePage extends Component
         $settings = app(SiteSettings::class);
 
         return view('livewire.home-page', [
+            'instagramPosts' => $this->content->instagramPosts(),
             'taglines' => $settings->taglines,
             'posts' => $this->content->posts(),
             'heroImage' => $site?->getFirstMediaUrl('hero') ?: asset('mockup/og-cover.jpg'),

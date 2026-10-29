@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Models\Course;
+use App\Models\InstagramPost;
 use App\Models\Post;
 use App\Models\Project;
 use App\Models\SiteStat;
@@ -29,6 +30,13 @@ final class PortfolioContent
         Cache::delete(self::PREFIX.'twitch_videos');
         Cache::delete(self::PREFIX.'socials');
         Cache::delete(self::PREFIX.'posts');
+        Cache::delete(self::PREFIX.'instagram_posts');
+    }
+
+    /** @return Collection<int, InstagramPost> */
+    public static function instagramPosts(): Collection
+    {
+        return Cache::rememberForever(self::PREFIX.'instagram_posts', fn () => InstagramPost::query()->visible()->limit(12)->get());
     }
 
     /** @return Collection<int, Post> */

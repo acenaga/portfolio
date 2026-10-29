@@ -17,4 +17,10 @@ return [
         'client_secret' => env('TWITCH_CLIENT_SECRET'),
         'login' => env('PORTFOLIO_TWITCH_LOGIN', 'acenagadev'),
     ],
+
+    'instagram' => [
+        // Cuenta profesional de IG vinculada a la app de Meta.
+        'user_id' => env('INSTAGRAM_USER_ID'),
+        'access_token' => env('INSTAGRAM_ACCESS_TOKEN'),
+    ],
 ];

@@ -306,21 +306,27 @@
 
             <div class="ig-grid">
                 @foreach ($instagramPosts as $index => $post)
-                    <a href="https://instagram.com/acenaga.dev" class="ig-item" wire:key="ig-item-{{ $index }}" style="background: {{ $post['color'] }};">
-                        <div class="ig-item-bg" style="color: {{ $post['accent'] }}; font-size: 40px;">{{ $post['emoji'] }}</div>
+                    <a href="{{ $post->permalink }}" target="_blank" rel="noopener" class="ig-item" wire:key="ig-item-{{ $index }}">
+                        @if ($post->isVideo() && $post->thumbnail_url)
+                            <img src="{{ $post->thumbnail_url }}" alt="Post de Instagram de Carlos Ferrer" loading="lazy" width="1080" height="1080" class="ig-item-img">
+                        @elseif ($post->media_url)
+                            <img src="{{ $post->media_url }}" alt="Post de Instagram de Carlos Ferrer" loading="lazy" width="1080" height="1080" class="ig-item-img">
+                        @else
+                            <div class="ig-item-bg" style="font-size: 40px; color: var(--border-strong);">📷</div>
+                        @endif
 
-                        @if ($post['type'] === 'reel')
-                            <div style="position: absolute; top: 8px; right: 8px; width: 22px; height: 22px; display: grid; place-items: center; color: white;">
+                        @if ($post->isVideo())
+                            <div class="ig-item-badge">
                                 <x-mockup-icon name="play" :size="20" />
                             </div>
-                        @elseif ($post['type'] === 'carousel')
-                            <div style="position: absolute; top: 8px; right: 8px; color: white; font-size: 16px;">⊞</div>
+                        @elseif ($post->isCarousel())
+                            <div class="ig-item-badge" style="font-size: 16px;">⊞</div>
                         @endif
 
                         <div class="ig-item-overlay">
                             <div class="ig-item-stats">
-                                <span><x-mockup-icon name="heart" :size="11" /> {{ $post['likes'] }}</span>
-                                <span><x-mockup-icon name="comment" :size="11" /> {{ $post['cmts'] }}</span>
+                                <span><x-mockup-icon name="heart" :size="11" /> {{ Number::abbreviate($post->like_count ?? 0) }}</span>
+                                <span><x-mockup-icon name="comment" :size="11" /> {{ Number::abbreviate($post->comments_count ?? 0) }}</span>
                             </div>
                         </div>
                     </a>
