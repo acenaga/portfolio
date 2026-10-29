@@ -1,5 +1,17 @@
 <?php
 
+use App\Enums\CourseLevel;
+use App\Enums\VideoPlatform;
+use App\Models\Course;
+use App\Models\Post;
+use App\Models\Project;
+use App\Models\Site;
+use App\Models\SiteStat;
+use App\Models\SocialLink;
+use App\Models\StackGroup;
+use App\Models\StackTool;
+use App\Models\Video;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 
 return [
@@ -123,8 +135,24 @@ return [
     | storage. By default, no PHP classes will be unserialized from your
     | cache to prevent gadget chain attacks if your APP_KEY is leaked.
     |
+    | The porfolio caches Eloquent models (managed by observers that flush
+    | on every save), so we allowlist exactly the classes it stores.
     */
 
-    'serializable_classes' => false,
+    'serializable_classes' => [
+        Collection::class,
+        Illuminate\Database\Eloquent\Collection::class,
+        CourseLevel::class,
+        VideoPlatform::class,
+        Course::class,
+        Post::class,
+        Project::class,
+        Site::class,
+        SiteStat::class,
+        SocialLink::class,
+        StackGroup::class,
+        StackTool::class,
+        Video::class,
+    ],
 
 ];
