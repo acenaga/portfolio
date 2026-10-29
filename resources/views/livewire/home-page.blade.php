@@ -115,7 +115,7 @@
                     <div style="position: relative; transform: rotate(2deg);">
                         <div style="position: absolute; inset: 0; background: var(--accent); border-radius: 12px; transform: translate(14px, 14px); z-index: 0;"></div>
                         <div style="position: relative; background: var(--surface-2); border: 3px solid var(--ink); border-radius: 12px; padding: 14px; z-index: 1;">
-                            <img src="{{ $heroImage }}" alt="Carlos Ferrer" width="1080" height="1080" fetchpriority="high" style="width: 100%; border-radius: 8px; display: block; filter: contrast(1.05);">
+                            <img src="{{ $heroImage }}" alt="Carlos Ferrer" width="1080" height="1080" fetchpriority="high" style="width: 100%; height: auto; border-radius: 8px; display: block; filter: contrast(1.05);">
                             <div style="margin-top: 12px; font-family: var(--f-mono); font-size: 11px; display: flex; justify-content: space-between; color: var(--ink-soft);">
                                 <span>// IMG_2026.jpg</span>
                                 <span>1080×1080</span>
